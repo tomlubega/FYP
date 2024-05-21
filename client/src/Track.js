@@ -10,11 +10,11 @@ function Track() {
         loadBlockchaindata();
     }, [])
 
-    const [currentaccount, setCurrentaccount] = useState("");
+    const [currentaccount, setCurrentAccount] = useState("");
     const [loader, setloader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
-    const [MED, setMED] = useState();
-    const [MedStage, setMedStage] = useState();
+    const [TOMATO, setMED] = useState();
+    const [MedStage, setTomatoStage] = useState();
     const [ID, setID] = useState();
     const [RMS, setRMS] = useState();
     const [MAN, setMAN] = useState();
@@ -23,7 +23,7 @@ function Track() {
     const [TrackTillSold, showTrackTillSold] = useState(false);
     const [TrackTillRetail, showTrackTillRetail] = useState(false);
     const [TrackTillDistribution, showTrackTillDistribution] = useState(false);
-    const [TrackTillManufacture, showTrackTillManufacture] = useState(false);
+    const [TrackTillSupplier, showTrackTillSupplier] = useState(false);
     const [TrackTillRMS, showTrackTillRMS] = useState(false);
     const [TrackTillOrdered, showTrackTillOrdered] = useState(false);
 
@@ -44,22 +44,22 @@ function Track() {
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
-        setCurrentaccount(account);
+        setCurrentAccount(account);
         const networkId = await web3.eth.net.getId();
         const networkData = SupplyChainABI.networks[networkId];
         if (networkData) {
             const supplychain = new web3.eth.Contract(SupplyChainABI.abi, networkData.address);
             setSupplyChain(supplychain);
             var i;
-            const medCtr = await supplychain.methods.medicineCtr().call();
-            const med = {};
-            const medStage = [];
+            const medCtr = await supplychain.methods.tomatoCtr().call();
+            const tomato = {};
+            const tomatoStage = [];
             for (i = 0; i < medCtr; i++) {
-                med[i + 1] = await supplychain.methods.MedicineStock(i + 1).call();
-                medStage[i + 1] = await supplychain.methods.showStage(i + 1).call();
+                tomato[i + 1] = await supplychain.methods.TomatoStock(i + 1).call();
+                tomatoStage[i + 1] = await supplychain.methods.showStage(i + 1).call();
             }
-            setMED(med);
-            setMedStage(medStage);
+            setMED(tomato);
+            setTomatoStage(tomatoStage);
             const rmsCtr = await supplychain.methods.rmsCtr().call();
             const rms = {};
             for (i = 0; i < rmsCtr; i++) {
@@ -101,12 +101,12 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomato:</u></b></h3>
+                    <span><b>Tomato ID: </b>{TOMATO[ID].id}</span>
                     <br />
-                    <span><b>Name:</b> {MED[ID].name}</span>
+                    <span><b>Name:</b> {TOMATO[ID].name}</span>
                     <br />
-                    <span><b>Description: </b>{MED[ID].description}</span>
+                    <span><b>Description: </b>{TOMATO[ID].description}</span>
                     <br />
                     <span><b>Current stage: </b>{MedStage[ID]}</span>
                 </article>
@@ -115,31 +115,31 @@ function Track() {
                 <section className="row">
 
                     <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
-                        <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
-                        <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
-                        <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
+                        <h4><u>Farmers Supplied by:</u></h4>
+                        <p><b>Supplier ID: </b>{RMS[TOMATO[ID].RMSid].id}</p>
+                        <p><b>Name:</b> {RMS[TOMATO[ID].RMSid].name}</p>
+                        <p><b>Place: </b>{RMS[TOMATO[ID].RMSid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
-                        <h4><u>Manufactured by:</u></h4>
-                        <p><b>Manufacturer ID: </b>{MAN[MED[ID].MANid].id}</p>
-                        <p><b>Name:</b> {MAN[MED[ID].MANid].name}</p>
-                        <p><b>Place: </b>{MAN[MED[ID].MANid].place}</p>
+                        <h4><u>Supplierd by:</u></h4>
+                        <p><b>Supplier ID: </b>{MAN[TOMATO[ID].MANid].id}</p>
+                        <p><b>Name:</b> {MAN[TOMATO[ID].MANid].name}</p>
+                        <p><b>Place: </b>{MAN[TOMATO[ID].MANid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
                         <h4><u>Distributed by:</u></h4>
-                        <p><b>Distributor ID: </b>{DIS[MED[ID].DISid].id}</p>
-                        <p><b>Name:</b> {DIS[MED[ID].DISid].name}</p>
-                        <p><b>Place: </b>{DIS[MED[ID].DISid].place}</p>
+                        <p><b>Distributor ID: </b>{DIS[TOMATO[ID].DISid].id}</p>
+                        <p><b>Name:</b> {DIS[TOMATO[ID].DISid].name}</p>
+                        <p><b>Place: </b>{DIS[TOMATO[ID].DISid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
                         <h4><u>Retailed by:</u></h4>
-                        <p><b>Retailer ID: </b>{RET[MED[ID].RETid].id}</p>
-                        <p><b>Name:</b> {RET[MED[ID].RETid].name}</p>
-                        <p><b>Place: </b>{RET[MED[ID].RETid].place}</p>
+                        <p><b>Retailer ID: </b>{RET[TOMATO[ID].RETid].id}</p>
+                        <p><b>Name:</b> {RET[TOMATO[ID].RETid].name}</p>
+                        <p><b>Place: </b>{RET[TOMATO[ID].RETid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
@@ -159,12 +159,12 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomato:</u></b></h3>
+                    <span><b>Tomato ID: </b>{TOMATO[ID].id}</span>
                     <br />
-                    <span><b>Name:</b> {MED[ID].name}</span>
+                    <span><b>Name:</b> {TOMATO[ID].name}</span>
                     <br />
-                    <span><b>Description: </b>{MED[ID].description}</span>
+                    <span><b>Description: </b>{TOMATO[ID].description}</span>
                     <br />
                     <span><b>Current stage: </b>{MedStage[ID]}</span>
                 </article>
@@ -173,31 +173,31 @@ function Track() {
                 <section className="row">
 
                     <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
-                        <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
-                        <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
-                        <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
+                        <h4><u>Farmers Supplied by:</u></h4>
+                        <p><b>Supplier ID: </b>{RMS[TOMATO[ID].RMSid].id}</p>
+                        <p><b>Name:</b> {RMS[TOMATO[ID].RMSid].name}</p>
+                        <p><b>Place: </b>{RMS[TOMATO[ID].RMSid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
-                        <h4><u>Manufactured by:</u></h4>
-                        <p><b>Manufacturer ID: </b>{MAN[MED[ID].MANid].id}</p>
-                        <p><b>Name:</b> {MAN[MED[ID].MANid].name}</p>
-                        <p><b>Place: </b>{MAN[MED[ID].MANid].place}</p>
+                        <h4><u>Supplierd by:</u></h4>
+                        <p><b>Supplier ID: </b>{MAN[TOMATO[ID].MANid].id}</p>
+                        <p><b>Name:</b> {MAN[TOMATO[ID].MANid].name}</p>
+                        <p><b>Place: </b>{MAN[TOMATO[ID].MANid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
                         <h4><u>Distributed by:</u></h4>
-                        <p><b>Distributor ID: </b>{DIS[MED[ID].DISid].id}</p>
-                        <p><b>Name:</b> {DIS[MED[ID].DISid].name}</p>
-                        <p><b>Place: </b>{DIS[MED[ID].DISid].place}</p>
+                        <p><b>Distributor ID: </b>{DIS[TOMATO[ID].DISid].id}</p>
+                        <p><b>Name:</b> {DIS[TOMATO[ID].DISid].name}</p>
+                        <p><b>Place: </b>{DIS[TOMATO[ID].DISid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
                         <h4><u>Retailed by:</u></h4>
-                        <p><b>Retailer ID: </b>{RET[MED[ID].RETid].id}</p>
-                        <p><b>Name:</b> {RET[MED[ID].RETid].name}</p>
-                        <p><b>Place: </b>{RET[MED[ID].RETid].place}</p>
+                        <p><b>Retailer ID: </b>{RET[TOMATO[ID].RETid].id}</p>
+                        <p><b>Name:</b> {RET[TOMATO[ID].RETid].name}</p>
+                        <p><b>Place: </b>{RET[TOMATO[ID].RETid].place}</p>
                     </article>
                 </section>
                 <button onClick={() => {
@@ -213,12 +213,12 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomato:</u></b></h3>
+                    <span><b>Tomato ID: </b>{TOMATO[ID].id}</span>
                     <br />
-                    <span><b>Name:</b> {MED[ID].name}</span>
+                    <span><b>Name:</b> {TOMATO[ID].name}</span>
                     <br />
-                    <span><b>Description: </b>{MED[ID].description}</span>
+                    <span><b>Description: </b>{TOMATO[ID].description}</span>
                     <br />
                     <span><b>Current stage: </b>{MedStage[ID]}</span>
                 </article>
@@ -227,24 +227,24 @@ function Track() {
                 <section className="row">
 
                     <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
-                        <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
-                        <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
-                        <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
+                        <h4><u>Farmers Supplied by:</u></h4>
+                        <p><b>Supplier ID: </b>{RMS[TOMATO[ID].RMSid].id}</p>
+                        <p><b>Name:</b> {RMS[TOMATO[ID].RMSid].name}</p>
+                        <p><b>Place: </b>{RMS[TOMATO[ID].RMSid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
-                        <h4><u>Manufactured by:</u></h4>
-                        <p><b>Manufacturer ID: </b>{MAN[MED[ID].MANid].id}</p>
-                        <p><b>Name:</b> {MAN[MED[ID].MANid].name}</p>
-                        <p><b>Place: </b>{MAN[MED[ID].MANid].place}</p>
+                        <h4><u>Supplierd by:</u></h4>
+                        <p><b>Supplier ID: </b>{MAN[TOMATO[ID].MANid].id}</p>
+                        <p><b>Name:</b> {MAN[TOMATO[ID].MANid].name}</p>
+                        <p><b>Place: </b>{MAN[TOMATO[ID].MANid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
                         <h4><u>Distributed by:</u></h4>
-                        <p><b>Distributor ID: </b>{DIS[MED[ID].DISid].id}</p>
-                        <p><b>Name:</b> {DIS[MED[ID].DISid].name}</p>
-                        <p><b>Place: </b>{DIS[MED[ID].DISid].place}</p>
+                        <p><b>Distributor ID: </b>{DIS[TOMATO[ID].DISid].id}</p>
+                        <p><b>Name:</b> {DIS[TOMATO[ID].DISid].name}</p>
+                        <p><b>Place: </b>{DIS[TOMATO[ID].DISid].place}</p>
                     </article>
                 </section>
                 <button onClick={() => {
@@ -256,16 +256,16 @@ function Track() {
             </div >
         )
     }
-    if (TrackTillManufacture) {
+    if (TrackTillSupplier) {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomato:</u></b></h3>
+                    <span><b>Tomato ID: </b>{TOMATO[ID].id}</span>
                     <br />
-                    <span><b>Name:</b> {MED[ID].name}</span>
+                    <span><b>Name:</b> {TOMATO[ID].name}</span>
                     <br />
-                    <span><b>Description: </b>{MED[ID].description}</span>
+                    <span><b>Description: </b>{TOMATO[ID].description}</span>
                     <br />
                     <span><b>Current stage: </b>{MedStage[ID]}</span>
                 </article>
@@ -274,21 +274,21 @@ function Track() {
                 <section className="row">
 
                     <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
-                        <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
-                        <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
-                        <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
+                        <h4><u>Farmers Supplied by:</u></h4>
+                        <p><b>Supplier ID: </b>{RMS[TOMATO[ID].RMSid].id}</p>
+                        <p><b>Name:</b> {RMS[TOMATO[ID].RMSid].name}</p>
+                        <p><b>Place: </b>{RMS[TOMATO[ID].RMSid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
-                        <h4><u>Manufactured by:</u></h4>
-                        <p><b>Manufacturer ID: </b>{MAN[MED[ID].MANid].id}</p>
-                        <p><b>Name:</b> {MAN[MED[ID].MANid].name}</p>
-                        <p><b>Place: </b>{MAN[MED[ID].MANid].place}</p>
+                        <h4><u>Supplierd by:</u></h4>
+                        <p><b>Supplier ID: </b>{MAN[TOMATO[ID].MANid].id}</p>
+                        <p><b>Name:</b> {MAN[TOMATO[ID].MANid].name}</p>
+                        <p><b>Place: </b>{MAN[TOMATO[ID].MANid].place}</p>
                     </article>
                 </section>
                 <button onClick={() => {
-                    showTrackTillManufacture(false);
+                    showTrackTillSupplier(false);
                 }} className="btn btn-outline-success btn-sm">Track Another Item</button>
                 <span onClick={() => {
                     history.push('/')
@@ -300,12 +300,12 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomato:</u></b></h3>
+                    <span><b>Tomato ID: </b>{TOMATO[ID].id}</span>
                     <br />
-                    <span><b>Name:</b> {MED[ID].name}</span>
+                    <span><b>Name:</b> {TOMATO[ID].name}</span>
                     <br />
-                    <span><b>Description: </b>{MED[ID].description}</span>
+                    <span><b>Description: </b>{TOMATO[ID].description}</span>
                     <br />
                     <span><b>Current stage: </b>{MedStage[ID]}</span>
                 </article>
@@ -314,10 +314,10 @@ function Track() {
                 <section className="row">
 
                     <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
-                        <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
-                        <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
-                        <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
+                        <h4><u>Farmers Supplied by:</u></h4>
+                        <p><b>Supplier ID: </b>{RMS[TOMATO[ID].RMSid].id}</p>
+                        <p><b>Name:</b> {RMS[TOMATO[ID].RMSid].name}</p>
+                        <p><b>Place: </b>{RMS[TOMATO[ID].RMSid].place}</p>
                     </article>
                 </section>
                 <button onClick={() => {
@@ -333,17 +333,17 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomato:</u></b></h3>
+                    <span><b>Tomato ID: </b>{TOMATO[ID].id}</span>
                     <br />
-                    <span><b>Name:</b> {MED[ID].name}</span>
+                    <span><b>Name:</b> {TOMATO[ID].name}</span>
                     <br />
-                    <span><b>Description: </b>{MED[ID].description}</span>
+                    <span><b>Description: </b>{TOMATO[ID].description}</span>
                     <br />
                     <span><b>Current stage: </b>{MedStage[ID]}</span>
                     <hr />
                     <br />
-                    <h5>Medicine Not Yet Processed...</h5>
+                    <h5>Tomato Not Yet Processed...</h5>
                     <button onClick={() => {
                         showTrackTillOrdered(false);
                     }} className="btn btn-outline-success btn-sm">Track Another Item</button>
@@ -354,10 +354,10 @@ function Track() {
                 {/* <section className="row">
                     
                     <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
-                        <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
-                        <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
-                        <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
+                        <h4><u>Farmers Supplied by:</u></h4>
+                        <p><b>Supplier ID: </b>{RMS[TOMATO[ID].RMSid].id}</p>
+                        <p><b>Name:</b> {RMS[TOMATO[ID].RMSid].name}</p>
+                        <p><b>Place: </b>{RMS[TOMATO[ID].RMSid].place}</p>
                     </article>
                 </section> */}
             </div >
@@ -371,24 +371,24 @@ function Track() {
     }
     const handlerSubmit = async (event) => {
         event.preventDefault();
-        var ctr = await SupplyChain.methods.medicineCtr().call();
+        var ctr = await SupplyChain.methods.tomatoCtr().call();
         if (!((ID > 0) && (ID <= ctr)))
-            alert("Invalid Medicine ID!!!");
+            alert("Invalid Tomato ID!!!");
         else {
             // eslint-disable-next-line
-            if (MED[ID].stage == 5)
+            if (TOMATO[ID].stage == 5)
                 showTrackTillSold(true);
             // eslint-disable-next-line
-            else if (MED[ID].stage == 4)
+            else if (TOMATO[ID].stage == 4)
                 showTrackTillRetail(true);
             // eslint-disable-next-line
-            else if (MED[ID].stage == 3)
+            else if (TOMATO[ID].stage == 3)
                 showTrackTillDistribution(true);
             // eslint-disable-next-line
-            else if (MED[ID].stage == 2)
-                showTrackTillManufacture(true);
+            else if (TOMATO[ID].stage == 2)
+                showTrackTillSupplier(true);
             // eslint-disable-next-line
-            else if (MED[ID].stage == 1)
+            else if (TOMATO[ID].stage == 1)
                 showTrackTillRMS(true);
             else
                 showTrackTillOrdered(true);
@@ -403,19 +403,19 @@ function Track() {
             <table className="table table-sm table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Medicine ID</th>
+                        <th scope="col">Tomato ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Current Processing Stage</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(MED).map(function (key) {
+                    {Object.keys(TOMATO).map(function (key) {
                         return (
                             <tr key={key}>
-                                <td>{MED[key].id}</td>
-                                <td>{MED[key].name}</td>
-                                <td>{MED[key].description}</td>
+                                <td>{TOMATO[key].id}</td>
+                                <td>{TOMATO[key].name}</td>
+                                <td>{TOMATO[key].description}</td>
                                 <td>
                                     {
                                         MedStage[key]
@@ -426,10 +426,10 @@ function Track() {
                     })}
                 </tbody>
             </table>
-            <h5>Enter Medicine ID to Track it</h5>
+            <h5>Enter Tomato ID to Track it</h5>
 
             <form onSubmit={handlerSubmit}>
-                <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Medicine ID" required />
+                <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Tomato ID" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmit}>Track</button>
             </form>
         </div>

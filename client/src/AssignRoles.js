@@ -9,7 +9,7 @@ function AssignRoles() {
         loadWeb3();
         loadBlockchaindata();
     }, [])
-    const [currentaccount, setCurrentaccount] = useState("");
+    const [currentaccount, setCurrentAccount] = useState("");
     const [loader, setloader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
     const [RMSname, setRMSname] = useState();
@@ -47,7 +47,7 @@ function AssignRoles() {
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
-        setCurrentaccount(account);
+        setCurrentAccount(account);
         const networkId = await web3.eth.net.getId();
         const networkData = SupplyChainABI.networks[networkId];
         if (networkData) {
@@ -146,7 +146,7 @@ function AssignRoles() {
     const handlerSubmitMAN = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.addManufacturer(MANaddress, MANname, MANplace).send({ from: currentaccount });
+            var reciept = await SupplyChain.methods.addSupplier(MANaddress, MANname, MANplace).send({ from: currentaccount });
             if (reciept) {
                 loadBlockchaindata();
             }
@@ -186,10 +186,10 @@ function AssignRoles() {
         <div>
             <span><b>Current Account Address:</b> {currentaccount}</span>
             <span onClick={redirect_to_home} className="btn btn-outline-danger btn-sm">HOME</span>
-            <h4>Raw Material Suppliers:</h4>
+            <h4>Farmers:</h4>
             <form onSubmit={handlerSubmitRMS}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeAddressRMS} placeholder="Ethereum Address" required />
-                <input className="form-control-sm" type="text" onChange={handlerChangeNameRMS} placeholder="Raw Material Supplier Name" required />
+                <input className="form-control-sm" type="text" onChange={handlerChangeNameRMS} placeholder="Farmer Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangePlaceRMS} placeholder="Based In" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitRMS}>Register</button>
             </form>
@@ -215,10 +215,10 @@ function AssignRoles() {
                     })}
                 </tbody>
             </table>
-            <h4>Manufacturers:</h4>
+            <h4>Suppliers:</h4>
             <form onSubmit={handlerSubmitMAN}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeAddressMAN} placeholder="Ethereum Address" required />
-                <input className="form-control-sm" type="text" onChange={handlerChangeNameMAN} placeholder="Manufacturer Name" required />
+                <input className="form-control-sm" type="text" onChange={handlerChangeNameMAN} placeholder="Supplier Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangePlaceMAN} placeholder="Based In" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitMAN}>Register</button>
             </form>

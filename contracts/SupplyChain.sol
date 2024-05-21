@@ -2,7 +2,7 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract SupplyChain {
-    //Smart Contract owner will be the person who deploys the contract only he can authorize various roles like retailer, Manufacturer,etc
+    //Smart Contract owner will be the person who deploys the contract only he can authorize various roles like retailer, Supplier,etc
     address public Owner;
 
     //note this constructor will be called when smart contract will be deployed on blockchain
@@ -10,10 +10,10 @@ contract SupplyChain {
         Owner = msg.sender;
     }
 
-    //Roles (flow of pharma supply chain)
-    // RawMaterialSupplier; //This is where Manufacturer will get raw materials to make medicines
-    // Manufacturer;  //Various WHO guidelines should be followed by this person
-    // Distributor; //This guy distributes the medicines to retailers
+    //Roles (flow of tomato supply chain)
+    // Farmer; //This is where Supplier will get tomatoes to make tomatoes
+    // Supplier;  //Various WHO guidelines should be followed by this person
+    // Distributor; //This guy distributes the tomatoes to retailers
     // Retailer; //Normal customer buys from the retailer
 
     //modifier to make sure only the owner is using the function
@@ -22,85 +22,85 @@ contract SupplyChain {
         _;
     }
 
-    //stages of a medicine in pharma supply chain
+    //stages of a tomato in tomato supply chain
     enum STAGE {
         Init,
-        RawMaterialSupply,
-        Manufacture,
+        Farmer,
+        Supplier,
         Distribution,
         Retail,
         sold
     }
-    //using this we are going to track every single medicine the owner orders
+    //using this we are going to track every single tomato the owner orders
 
-    //Medicine count
-    uint256 public medicineCtr = 0;
-    //Raw material supplier count
+    //Tomatoes count
+    uint256 public tomatoCtr = 0;
+    //farmer count
     uint256 public rmsCtr = 0;
-    //Manufacturer count
+    //Supplier count
     uint256 public manCtr = 0;
     //distributor count
     uint256 public disCtr = 0;
     //retailer count
     uint256 public retCtr = 0;
 
-    //To store information about the medicine
-    struct medicine {
-        uint256 id; //unique medicine id
-        string name; //name of the medicine
-        string description; //about medicine
-        uint256 RMSid; //id of the Raw Material supplier for this particular medicine
-        uint256 MANid; //id of the Manufacturer for this particular medicine
-        uint256 DISid; //id of the distributor for this particular medicine
-        uint256 RETid; //id of the retailer for this particular medicine
-        STAGE stage; //current medicine stage
+    //To store information about the tomato
+    struct tomato {
+        uint256 id; //unique tomato id
+        string name; //name of the tomato
+        string description; //about tomato
+        uint256 RMSid; //id of the Farmer for this particular tomato
+        uint256 MANid; //id of the Supplier for this particular tomato
+        uint256 DISid; //id of the distributor for this particular tomato
+        uint256 RETid; //id of the retailer for this particular tomato
+        STAGE stage; //current tomato stage
     }
 
-    //To store all the medicines on the blockchain
-    mapping(uint256 => medicine) public MedicineStock;
+    //To store all the tomatoes on the blockchain
+    mapping(uint256 => tomato) public TomatoStock;
 
     //To show status to client applications
-    function showStage(uint256 _medicineID)
+    function showStage(uint256 _tomatoID)
         public
         view
         returns (string memory)
     {
-        require(medicineCtr > 0);
-        if (MedicineStock[_medicineID].stage == STAGE.Init)
-            return "Medicine Ordered";
-        else if (MedicineStock[_medicineID].stage == STAGE.RawMaterialSupply)
-            return "Raw Material Supply Stage";
-        else if (MedicineStock[_medicineID].stage == STAGE.Manufacture)
+        require(tomatoCtr > 0);
+        if (TomatoStock[_tomatoID].stage == STAGE.Init)
+            return "Tomatoes Ordered";
+        else if (TomatoStock[_tomatoID].stage == STAGE.Farmer)
+            return "Farmer Stage";
+        else if (TomatoStock[_tomatoID].stage == STAGE.Supplier)
             return "Manufacturing Stage";
-        else if (MedicineStock[_medicineID].stage == STAGE.Distribution)
+        else if (TomatoStock[_tomatoID].stage == STAGE.Distribution)
             return "Distribution Stage";
-        else if (MedicineStock[_medicineID].stage == STAGE.Retail)
+        else if (TomatoStock[_tomatoID].stage == STAGE.Retail)
             return "Retail Stage";
-        else if (MedicineStock[_medicineID].stage == STAGE.sold)
-            return "Medicine Sold";
+        else if (TomatoStock[_tomatoID].stage == STAGE.sold)
+            return "Tomatoes Sold";
     }
 
-    //To store information about raw material supplier
-    struct rawMaterialSupplier {
+    //To store information about farmer
+    struct farmer {
         address addr;
         uint256 id; //supplier id
-        string name; //Name of the raw material supplier
-        string place; //Place the raw material supplier is based in
+        string name; //Name of the farmer
+        string place; //Place the farmer is based in
     }
 
-    //To store all the raw material suppliers on the blockchain
-    mapping(uint256 => rawMaterialSupplier) public RMS;
+    //To store all the farmers on the blockchain
+    mapping(uint256 => farmer) public RMS;
 
-    //To store information about manufacturer
-    struct manufacturer {
+    //To store information about supplier
+    struct supplier {
         address addr;
-        uint256 id; //manufacturer id
-        string name; //Name of the manufacturer
-        string place; //Place the manufacturer is based in
+        uint256 id; //supplier id
+        string name; //Name of the supplier
+        string place; //Place the supplier is based in
     }
 
-    //To store all the manufacturers on the blockchain
-    mapping(uint256 => manufacturer) public MAN;
+    //To store all the suppliers on the blockchain
+    mapping(uint256 => supplier) public MAN;
 
     //To store information about distributor
     struct distributor {
@@ -124,24 +124,24 @@ contract SupplyChain {
     //To store all the retailers on the blockchain
     mapping(uint256 => retailer) public RET;
 
-    //To add raw material suppliers. Only contract owner can add a new raw material supplier
+    //To add farmers. Only contract owner can add a new farmer
     function addRMS(
         address _address,
         string memory _name,
         string memory _place
     ) public onlyByOwner() {
         rmsCtr++;
-        RMS[rmsCtr] = rawMaterialSupplier(_address, rmsCtr, _name, _place);
+        RMS[rmsCtr] = farmer(_address, rmsCtr, _name, _place);
     }
 
-    //To add manufacturer. Only contract owner can add a new manufacturer
-    function addManufacturer(
+    //To add supplier. Only contract owner can add a new supplier
+    function addSupplier(
         address _address,
         string memory _name,
         string memory _place
     ) public onlyByOwner() {
         manCtr++;
-        MAN[manCtr] = manufacturer(_address, manCtr, _name, _place);
+        MAN[manCtr] = supplier(_address, manCtr, _name, _place);
     }
 
     //To add distributor. Only contract owner can add a new distributor
@@ -164,14 +164,14 @@ contract SupplyChain {
         RET[retCtr] = retailer(_address, retCtr, _name, _place);
     }
 
-    //To supply raw materials from RMS supplier to the manufacturer
-    function RMSsupply(uint256 _medicineID) public {
-        require(_medicineID > 0 && _medicineID <= medicineCtr);
+    //To supply tomatoes from RMS supplier to the supplier
+    function RMSsupply(uint256 _tomatoID) public {
+        require(_tomatoID > 0 && _tomatoID <= tomatoCtr);
         uint256 _id = findRMS(msg.sender);
         require(_id > 0);
-        require(MedicineStock[_medicineID].stage == STAGE.Init);
-        MedicineStock[_medicineID].RMSid = _id;
-        MedicineStock[_medicineID].stage = STAGE.RawMaterialSupply;
+        require(TomatoStock[_tomatoID].stage == STAGE.Init);
+        TomatoStock[_tomatoID].RMSid = _id;
+        TomatoStock[_tomatoID].stage = STAGE.Farmer;
     }
 
     //To check if RMS is available in the blockchain
@@ -183,17 +183,17 @@ contract SupplyChain {
         return 0;
     }
 
-    //To manufacture medicine
-    function Manufacturing(uint256 _medicineID) public {
-        require(_medicineID > 0 && _medicineID <= medicineCtr);
+    //To supplier tomato
+    function Manufacturing(uint256 _tomatoID) public {
+        require(_tomatoID > 0 && _tomatoID <= tomatoCtr);
         uint256 _id = findMAN(msg.sender);
         require(_id > 0);
-        require(MedicineStock[_medicineID].stage == STAGE.RawMaterialSupply);
-        MedicineStock[_medicineID].MANid = _id;
-        MedicineStock[_medicineID].stage = STAGE.Manufacture;
+        require(TomatoStock[_tomatoID].stage == STAGE.Farmer);
+        TomatoStock[_tomatoID].MANid = _id;
+        TomatoStock[_tomatoID].stage = STAGE.Supplier;
     }
 
-    //To check if Manufacturer is available in the blockchain
+    //To check if Supplier is available in the blockchain
     function findMAN(address _address) private view returns (uint256) {
         require(manCtr > 0);
         for (uint256 i = 1; i <= manCtr; i++) {
@@ -202,14 +202,14 @@ contract SupplyChain {
         return 0;
     }
 
-    //To supply medicines from Manufacturer to distributor
-    function Distribute(uint256 _medicineID) public {
-        require(_medicineID > 0 && _medicineID <= medicineCtr);
+    //To supply tomatoes from Supplier to distributor
+    function Distribute(uint256 _tomatoID) public {
+        require(_tomatoID > 0 && _tomatoID <= tomatoCtr);
         uint256 _id = findDIS(msg.sender);
         require(_id > 0);
-        require(MedicineStock[_medicineID].stage == STAGE.Manufacture);
-        MedicineStock[_medicineID].DISid = _id;
-        MedicineStock[_medicineID].stage = STAGE.Distribution;
+        require(TomatoStock[_tomatoID].stage == STAGE.Supplier);
+        TomatoStock[_tomatoID].DISid = _id;
+        TomatoStock[_tomatoID].stage = STAGE.Distribution;
     }
 
     //To check if distributor is available in the blockchain
@@ -221,14 +221,14 @@ contract SupplyChain {
         return 0;
     }
 
-    //To supply medicines from distributor to retailer
-    function Retail(uint256 _medicineID) public {
-        require(_medicineID > 0 && _medicineID <= medicineCtr);
+    //To supply tomatoes from distributor to retailer
+    function Retail(uint256 _tomatoID) public {
+        require(_tomatoID > 0 && _tomatoID <= tomatoCtr);
         uint256 _id = findRET(msg.sender);
         require(_id > 0);
-        require(MedicineStock[_medicineID].stage == STAGE.Distribution);
-        MedicineStock[_medicineID].RETid = _id;
-        MedicineStock[_medicineID].stage = STAGE.Retail;
+        require(TomatoStock[_tomatoID].stage == STAGE.Distribution);
+        TomatoStock[_tomatoID].RETid = _id;
+        TomatoStock[_tomatoID].stage = STAGE.Retail;
     }
 
     //To check if retailer is available in the blockchain
@@ -240,25 +240,25 @@ contract SupplyChain {
         return 0;
     }
 
-    //To sell medicines from retailer to consumer
-    function sold(uint256 _medicineID) public {
-        require(_medicineID > 0 && _medicineID <= medicineCtr);
+    //To sell tomatoes from retailer to consumer
+    function sold(uint256 _tomatoID) public {
+        require(_tomatoID > 0 && _tomatoID <= tomatoCtr);
         uint256 _id = findRET(msg.sender);
         require(_id > 0);
-        require(_id == MedicineStock[_medicineID].RETid); //Only correct retailer can mark medicine as sold
-        require(MedicineStock[_medicineID].stage == STAGE.Retail);
-        MedicineStock[_medicineID].stage = STAGE.sold;
+        require(_id == TomatoStock[_tomatoID].RETid); //Only correct retailer can mark tomato as sold
+        require(TomatoStock[_tomatoID].stage == STAGE.Retail);
+        TomatoStock[_tomatoID].stage = STAGE.sold;
     }
 
-    // To add new medicines to the stock
-    function addMedicine(string memory _name, string memory _description)
+    // To add new tomatoes to the stock
+    function addTomato(string memory _name, string memory _description)
         public
         onlyByOwner()
     {
         require((rmsCtr > 0) && (manCtr > 0) && (disCtr > 0) && (retCtr > 0));
-        medicineCtr++;
-        MedicineStock[medicineCtr] = medicine(
-            medicineCtr,
+        tomatoCtr++;
+        TomatoStock[tomatoCtr] = tomato(
+            tomatoCtr,
             _name,
             _description,
             0,

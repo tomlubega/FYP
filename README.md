@@ -40,7 +40,7 @@ https://www.canva.com/design/DAFb-i9v_cM/-fK0pKTuOkFq5dfCPQxh_w/watch?utm_conten
 
 ## Description
 Supply chain is always hard to manage and requires a lot of admistrative machinery. However, when managed with smart contracts using blockchain, a lot of the paperwork is reduced.
-Also it leads to an increase in the transparency and helps to build an efficient Root of Trust. Supply-chain-dapp is such an implementation of a supply chain management system which uses blockchain to ensure a transparent and secure transfer of product from the manufacturer to the customer via the online e-commerce websites. 
+Also it leads to an increase in the transparency and helps to build an efficient Root of Trust. Supply-chain-dapp is such an implementation of a supply chain management system which uses blockchain to ensure a transparent and secure transfer of product from the supplier to the customer via the online e-commerce websites. 
 ## Architecture
 The smart contract is being written with Solidity which is then compiled, migrated and deployed using Truffle.js on the Gode Testnet blockchain network.The frontend uses Web3.js to communicate with the smart contract and Gode Testnet blockchain network and Meta Musk Wallet is connect to Gode Test Network to do Transaction between each component in Supply .
 ****
@@ -59,15 +59,15 @@ The smart contract is being written with Solidity which is then compiled, migrat
 
 This is a SupplyChain smart contract written in Solidity. The contract models the various roles and stages involved in the supply chain of a pharmaceutical product.
 
-The contract owner is the person who deploys the contract and is the only one who can authorize various roles like retailer, manufacturer, etc.
+The contract owner is the person who deploys the contract and is the only one who can authorize various roles like retailer, supplier, etc.
 
-There are several roles involved in the supply chain of the pharmaceutical product. These include the raw material supplier, manufacturer, distributor, and retailer.
+There are several roles involved in the supply chain of the pharmaceutical product. These include the Farmer, supplier, distributor, and retailer.
 
-The smart contract stores information about the medicine, such as its name, description, and current stage in the supply chain. There is also a function to show the current stage of a medicine, which can be used by client applications.
+The smart contract stores information about the tomato, such as its name, description, and current stage in the supply chain. There is also a function to show the current stage of a tomato, which can be used by client applications.
 
 The smart contract also stores information about the various players in the supply chain, such as their name, address, and place of operation.
 
-The addRMS(), addManufacturer(), addDistributor(), and addRetailer() functions can be used by the contract owner to add new players to the supply chain.
+The addRMS(), addSupplier(), addDistributor(), and addRetailer() functions can be used by the contract owner to add new players to the supply chain.
 
 Overall, this smart contract provides a way to track the various stages of a pharmaceutical product in the supply chain, ensuring transparency and accountability.
 
@@ -159,7 +159,7 @@ Select "Custom RPC" and enter the RPC server URL and port number for your Ganach
  2. In MetaMask, click on the three dots in the top-right corner, select "Import Account", and paste the private key into the private key field. Click "Import".
 
      ![https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs76Q1oyMK717kRZ8FMC_i2VCstu8H2yZFqlfgccSsalxBXWm2PBwzS-peIFv4DqGos9g&usqp=CAU](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs76Q1oyMK717kRZ8FMC_i2VCstu8H2yZFqlfgccSsalxBXWm2PBwzS-peIFv4DqGos9g&usqp=CAU)
- 3. Add All participate(Raw Material,Supplier,Manufacture,Retail). by following above Step
+ 3. Add All participate(Farmer,Supplier,Supplier,Retail). by following above Step
 
 ### License
 This project uses an [MIT](https://opensource.org/licenses/MIT) license.
