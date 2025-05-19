@@ -100,7 +100,7 @@ function AddMed() {
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitMED}>Order</button>
             </form>
             <br />
-            <h5>Ordered Medicines:</h5>
+            <h5>Ordered Tomatoes:</h5>
             <table className="table table-bordered">
                 <thead>
                     <tr>

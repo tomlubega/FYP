@@ -101,8 +101,8 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomatoes:</u></b></h3>
+                    <span><b>Tomatoes ID: </b>{MED[ID].id}</span>
                     <br />
                     <span><b>Name:</b> {MED[ID].name}</span>
                     <br />
@@ -159,8 +159,8 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomatoes:</u></b></h3>
+                    <span><b>Tomatoes ID: </b>{MED[ID].id}</span>
                     <br />
                     <span><b>Name:</b> {MED[ID].name}</span>
                     <br />
@@ -213,8 +213,8 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomatoes:</u></b></h3>
+                    <span><b>Tomatoes ID: </b>{MED[ID].id}</span>
                     <br />
                     <span><b>Name:</b> {MED[ID].name}</span>
                     <br />
@@ -227,15 +227,15 @@ function Track() {
                 <section className="row">
 
                     <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
+                        <h4><u>Tomatoes Supplied by:</u></h4>
                         <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
                         <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
                         <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
-                        <h4><u>Manufactured by:</u></h4>
-                        <p><b>Manufacturer ID: </b>{MAN[MED[ID].MANid].id}</p>
+                        <h4><u> Produced by:</u></h4>
+                        <p><b>Farmer ID: </b>{MAN[MED[ID].MANid].id}</p>
                         <p><b>Name:</b> {MAN[MED[ID].MANid].name}</p>
                         <p><b>Place: </b>{MAN[MED[ID].MANid].place}</p>
                     </article>
@@ -260,8 +260,8 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomatoes:</u></b></h3>
+                    <span><b>Tomatoes ID: </b>{MED[ID].id}</span>
                     <br />
                     <span><b>Name:</b> {MED[ID].name}</span>
                     <br />
@@ -274,22 +274,22 @@ function Track() {
                 <section className="row">
 
                     <article className="col-3">
-                        <h4><u>Raw Materials Supplied by:</u></h4>
+                        <h4><u>Tomatoes Supplied by:</u></h4>
                         <p><b>Supplier ID: </b>{RMS[MED[ID].RMSid].id}</p>
                         <p><b>Name:</b> {RMS[MED[ID].RMSid].name}</p>
                         <p><b>Place: </b>{RMS[MED[ID].RMSid].place}</p>
                     </article>
                     <span>&#10132;</span>
                     <article className="col-3">
-                        <h4><u>Manufactured by:</u></h4>
-                        <p><b>Manufacturer ID: </b>{MAN[MED[ID].MANid].id}</p>
+                        <h4><u>Produced by:</u></h4>
+                        <p><b>Farmer ID: </b>{MAN[MED[ID].MANid].id}</p>
                         <p><b>Name:</b> {MAN[MED[ID].MANid].name}</p>
                         <p><b>Place: </b>{MAN[MED[ID].MANid].place}</p>
                     </article>
                 </section>
                 <button onClick={() => {
                     showTrackTillManufacture(false);
-                }} className="btn btn-outline-success btn-sm">Track Another Item</button>
+                }} className="btn btn-outline-success btn-sm">Track Another Tomato Item</button>
                 <span onClick={() => {
                     history.push('/')
                 }} className="btn btn-outline-danger btn-sm"> HOME</span>
@@ -333,8 +333,8 @@ function Track() {
         return (
             <div className="container-xl">
                 <article className="col-4">
-                    <h3><b><u>Medicine:</u></b></h3>
-                    <span><b>Medicine ID: </b>{MED[ID].id}</span>
+                    <h3><b><u>Tomatoes:</u></b></h3>
+                    <span><b>Tomatoes ID: </b>{MED[ID].id}</span>
                     <br />
                     <span><b>Name:</b> {MED[ID].name}</span>
                     <br />
@@ -343,10 +343,10 @@ function Track() {
                     <span><b>Current stage: </b>{MedStage[ID]}</span>
                     <hr />
                     <br />
-                    <h5>Medicine Not Yet Processed...</h5>
+                    <h5>Tomatoes Not Yet Supplied...</h5>
                     <button onClick={() => {
                         showTrackTillOrdered(false);
-                    }} className="btn btn-outline-success btn-sm">Track Another Item</button>
+                    }} className="btn btn-outline-success btn-sm">Track Another Tomato Item</button>
                     <span onClick={() => {
                         history.push('/')
                     }} className="btn btn-outline-danger btn-sm"> HOME</span>

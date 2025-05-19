@@ -186,10 +186,10 @@ function AssignRoles() {
         <div>
             <span><b>Current Account Address:</b> {currentaccount}</span>
             <span onClick={redirect_to_home} className="btn btn-outline-danger btn-sm">HOME</span>
-            <h4>Raw Material Suppliers:</h4>
+            <h4>Tomato Farmers:</h4>
             <form onSubmit={handlerSubmitRMS}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeAddressRMS} placeholder="Ethereum Address" required />
-                <input className="form-control-sm" type="text" onChange={handlerChangeNameRMS} placeholder="Raw Material Supplier Name" required />
+                <input className="form-control-sm" type="text" onChange={handlerChangeNameRMS} placeholder="Tomato Farmer Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangePlaceRMS} placeholder="Based In" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitRMS}>Register</button>
             </form>
@@ -215,10 +215,10 @@ function AssignRoles() {
                     })}
                 </tbody>
             </table>
-            <h4>Manufacturers:</h4>
+            <h4>Suppliers:</h4>
             <form onSubmit={handlerSubmitMAN}>
                 <input className="form-control-sm" type="text" onChange={handlerChangeAddressMAN} placeholder="Ethereum Address" required />
-                <input className="form-control-sm" type="text" onChange={handlerChangeNameMAN} placeholder="Manufacturer Name" required />
+                <input className="form-control-sm" type="text" onChange={handlerChangeNameMAN} placeholder="Supplier Name" required />
                 <input className="form-control-sm" type="text" onChange={handlerChangePlaceMAN} placeholder="Based In" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitMAN}>Register</button>
             </form>
