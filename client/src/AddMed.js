@@ -7,11 +7,11 @@ function AddMed() {
     const history = useHistory()
     useEffect(() => {
         loadWeb3();
-        loadBlockchaindata();
+        loadBlockchainData();
     }, [])
 
-    const [currentaccount, setCurrentaccount] = useState("");
-    const [loader, setloader] = useState(true);
+    const [currentaccount, setCurrentAccount] = useState("");
+    const [loader, setLoader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
     const [MED, setMED] = useState();
     const [MedName, setMedName] = useState();
@@ -32,12 +32,12 @@ function AddMed() {
         }
     };
 
-    const loadBlockchaindata = async () => {
-        setloader(true);
+    const loadBlockchainData = async () => {
+        setLoader(true);
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
-        setCurrentaccount(account);
+        setCurrentAccount(account);
         const networkId = await web3.eth.net.getId();
         const networkData = SupplyChainABI.networks[networkId];
         if (networkData) {
@@ -53,7 +53,7 @@ function AddMed() {
             }
             setMED(med);
             setMedStage(medStage);
-            setloader(false);
+            setLoader(false);
         }
         else {
             window.alert('The smart contract is not deployed to current network')
@@ -79,13 +79,13 @@ function AddMed() {
     const handlerSubmitMED = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.addMedicine(MedName, MedDes).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.addMedicine(MedName, MedDes).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
-            alert("An error occured!!!")
+            alert("An error occurred!!!")
         }
     }
     return (
@@ -93,10 +93,10 @@ function AddMed() {
             <span><b>Current Account Address:</b> {currentaccount}</span>
             <span onClick={redirect_to_home} className="btn btn-outline-danger btn-sm"> HOME</span>
             <br />
-            <h5>Add Medicine Order:</h5>
+            <h5>Add Tomatoes Order:</h5>
             <form onSubmit={handlerSubmitMED}>
-                <input className="form-control-sm" type="text" onChange={handlerChangeNameMED} placeholder="Medicine Name" required />
-                <input className="form-control-sm" type="text" onChange={handlerChangeDesMED} placeholder="Medicine Description" required />
+                <input className="form-control-sm" type="text" onChange={handlerChangeNameMED} placeholder="Tomatoes Name" required />
+                <input className="form-control-sm" type="text" onChange={handlerChangeDesMED} placeholder="Tomatoes Description" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmitMED}>Order</button>
             </form>
             <br />

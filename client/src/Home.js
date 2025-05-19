@@ -15,25 +15,41 @@ function Home() {
     const redirect_to_track = () => {
         history.push('/track')
     }
+
     return (
-        <div>
-            <h3>TomaDigital Supply Chain Flow :- </h3>
-            <br />
-            <h6>(Note: Here <u>Owner</u> is the person who deployed the smart contract on the blockchain)</h6>
-            <h5>Step 1: Owner Should Register farmers, suppliers, distributors, and  retailers </h5>
-            <h6>(Note: This is a one time step. Skip to step 2 if already done)</h6>
-            <button onClick={redirect_to_roles} className="btn btn-outline-primary btn-sm">Register</button>
-            <br />
-            <h5>Step 2: Owner should order tomatoes</h5>
-            <button onClick={redirect_to_addmed} className="btn btn-outline-primary btn-sm">Order Tomatoes</button>
-            <br />
-            <h5>Step 3: Control Supply Chain</h5>
-            <button onClick={redirect_to_supply} className="btn btn-outline-primary btn-sm">Control Supply Chain</button>
-            <br />
-            <hr />
-            <br />
-            <h5><b>Track</b> the tomatoes:</h5>
-            <button onClick={redirect_to_track} className="btn btn-outline-primary btn-sm">Track Tomatoes</button>
+        <div className="container mt-5">
+            <div className="text-center">
+                <h2 className="fw-bold text-primary mb-4">TomaDigital Supply Chain Flow</h2>
+                <p className="text-muted fst-italic">
+                    (Note: Here <span className="fw-bold text-dark">Owner</span> is the person who deployed the smart contract on the blockchain)
+                </p>
+            </div>
+
+            <div className="card shadow-sm p-4 mb-4">
+                <h5 className="fw-bold text-secondary mb-2">Step 1:</h5>
+                <p>Owner should register farmers, suppliers, distributors, and retailers</p>
+                <p className="text-muted">(Note: This is a one-time step. Skip to step 2 if already done)</p>
+                <button onClick={redirect_to_roles} className="btn btn-primary w-100">Register</button>
+            </div>
+
+            <div className="card shadow-sm p-4 mb-4">
+                <h5 className="fw-bold text-secondary mb-2">Step 2:</h5>
+                <p>Owner should order tomatoes</p>
+                <button onClick={redirect_to_addmed} className="btn btn-success w-100">Order Tomatoes</button>
+            </div>
+
+            <div className="card shadow-sm p-4 mb-4">
+                <h5 className="fw-bold text-secondary mb-2">Step 3:</h5>
+                <p>Control the supply chain</p>
+                <button onClick={redirect_to_supply} className="btn btn-warning w-100">Control Supply Chain</button>
+            </div>
+
+            <hr className="my-4" />
+
+            <div className="text-center">
+                <h5 className="fw-bold mb-3">Track the Tomatoes</h5>
+                <button onClick={redirect_to_track} className="btn btn-outline-dark">Track Tomatoes</button>
+            </div>
         </div>
     )
 }

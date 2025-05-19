@@ -7,11 +7,11 @@ function Supply() {
     const history = useHistory()
     useEffect(() => {
         loadWeb3();
-        loadBlockchaindata();
+        loadBlockchainData();
     }, [])
 
-    const [currentaccount, setCurrentaccount] = useState("");
-    const [loader, setloader] = useState(true);
+    const [currentaccount, setCurrentAccount] = useState("");
+    const [loader, setLoader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
     const [MED, setMED] = useState();
     const [MedStage, setMedStage] = useState();
@@ -30,12 +30,12 @@ function Supply() {
             );
         }
     };
-    const loadBlockchaindata = async () => {
-        setloader(true);
+    const loadBlockchainData = async () => {
+        setLoader(true);
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
-        setCurrentaccount(account);
+        setCurrentAccount(account);
         const networkId = await web3.eth.net.getId();
         const networkData = SupplyChainABI.networks[networkId];
         if (networkData) {
@@ -51,7 +51,7 @@ function Supply() {
             }
             setMED(med);
             setMedStage(medStage);
-            setloader(false);
+            setLoader(false);
         }
         else {
             window.alert('The smart contract is not deployed to current network')
@@ -74,9 +74,9 @@ function Supply() {
     const handlerSubmitRMSsupply = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.RMSsupply(ID).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.RMSsupply(ID).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
@@ -86,9 +86,9 @@ function Supply() {
     const handlerSubmitManufacturing = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.Manufacturing(ID).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.Manufacturing(ID).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
@@ -98,9 +98,9 @@ function Supply() {
     const handlerSubmitDistribute = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.Distribute(ID).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.Distribute(ID).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
@@ -110,9 +110,9 @@ function Supply() {
     const handlerSubmitRetail = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.Retail(ID).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.Retail(ID).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
@@ -122,9 +122,9 @@ function Supply() {
     const handlerSubmitSold = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.sold(ID).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.sold(ID).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {

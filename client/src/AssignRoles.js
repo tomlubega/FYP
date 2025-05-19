@@ -7,10 +7,10 @@ function AssignRoles() {
     const history = useHistory()
     useEffect(() => {
         loadWeb3();
-        loadBlockchaindata();
+        loadBlockchainData();
     }, [])
-    const [currentaccount, setCurrentaccount] = useState("");
-    const [loader, setloader] = useState(true);
+    const [currentaccount, setCurrentAccount] = useState("");
+    const [loader, setLoader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
     const [RMSname, setRMSname] = useState();
     const [MANname, setMANname] = useState();
@@ -42,12 +42,12 @@ function AssignRoles() {
         }
     };
 
-    const loadBlockchaindata = async () => {
-        setloader(true);
+    const loadBlockchainData = async () => {
+        setLoader(true);
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
-        setCurrentaccount(account);
+        setCurrentAccount(account);
         const networkId = await web3.eth.net.getId();
         const networkData = SupplyChainABI.networks[networkId];
         if (networkData) {
@@ -78,7 +78,7 @@ function AssignRoles() {
                 ret[i] = await supplychain.methods.RET(i + 1).call();
             }
             setRET(ret);
-            setloader(false);
+            setLoader(false);
         }
         else {
             window.alert('The smart contract is not deployed to current network')
@@ -134,49 +134,49 @@ function AssignRoles() {
     const handlerSubmitRMS = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.addRMS(RMSaddress, RMSname, RMSplace).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.addRMS(RMSaddress, RMSname, RMSplace).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
-            alert("An error occured!!!")
+            alert("An error occurred!!!")
         }
     }
     const handlerSubmitMAN = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.addManufacturer(MANaddress, MANname, MANplace).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.addManufacturer(MANaddress, MANname, MANplace).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
-            alert("An error occured!!!")
+            alert("An error occurred!!!")
         }
     }
     const handlerSubmitDIS = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.addDistributor(DISaddress, DISname, DISplace).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.addDistributor(DISaddress, DISname, DISplace).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
-            alert("An error occured!!!")
+            alert("An error occurred!!!")
         }
     }
     const handlerSubmitRET = async (event) => {
         event.preventDefault();
         try {
-            var reciept = await SupplyChain.methods.addRetailer(RETaddress, RETname, RETplace).send({ from: currentaccount });
-            if (reciept) {
-                loadBlockchaindata();
+            var receipt = await SupplyChain.methods.addRetailer(RETaddress, RETname, RETplace).send({ from: currentaccount });
+            if (receipt) {
+                loadBlockchainData();
             }
         }
         catch (err) {
-            alert("An error occured!!!")
+            alert("An error occurred!!!")
         }
     }
 

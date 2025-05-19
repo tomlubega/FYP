@@ -7,11 +7,11 @@ function Track() {
     const history = useHistory()
     useEffect(() => {
         loadWeb3();
-        loadBlockchaindata();
+        loadBlockchainData();
     }, [])
 
-    const [currentaccount, setCurrentaccount] = useState("");
-    const [loader, setloader] = useState(true);
+    const [currentaccount, setCurrentAccount] = useState("");
+    const [loader, setLoader] = useState(true);
     const [SupplyChain, setSupplyChain] = useState();
     const [MED, setMED] = useState();
     const [MedStage, setMedStage] = useState();
@@ -39,12 +39,12 @@ function Track() {
             );
         }
     };
-    const loadBlockchaindata = async () => {
-        setloader(true);
+    const loadBlockchainData = async () => {
+        setLoader(true);
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
-        setCurrentaccount(account);
+        setCurrentAccount(account);
         const networkId = await web3.eth.net.getId();
         const networkData = SupplyChainABI.networks[networkId];
         if (networkData) {
@@ -84,7 +84,7 @@ function Track() {
                 ret[i + 1] = await supplychain.methods.RET(i + 1).call();
             }
             setRET(ret);
-            setloader(false);
+            setLoader(false);
         }
         else {
             window.alert('The smart contract is not deployed to current network')
@@ -426,10 +426,10 @@ function Track() {
                     })}
                 </tbody>
             </table>
-            <h5>Enter Medicine ID to Track it</h5>
+            <h5>Enter Tomato Item ID to Track it</h5>
 
             <form onSubmit={handlerSubmit}>
-                <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Medicine ID" required />
+                <input className="form-control-sm" type="text" onChange={handlerChangeID} placeholder="Enter Tomato ID" required />
                 <button className="btn btn-outline-success btn-sm" onSubmit={handlerSubmit}>Track</button>
             </form>
         </div>
