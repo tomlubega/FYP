@@ -9,7 +9,7 @@ function AssignRoles() {
     loadWeb3();
     loadBlockchainData();
   }, []);
-  const [currentaccount, setCurrentAccount] = useState("");
+  const [currentAccount, setCurrentAccount] = useState("");
   const [loader, setLoader] = useState(true);
   const [SupplyChain, setSupplyChain] = useState();
   const [RMSname, setRMSname] = useState();
@@ -137,7 +137,7 @@ function AssignRoles() {
     try {
       var receipt = await SupplyChain.methods
         .addRMS(RMSaddress, RMSname, RMSplace)
-        .send({ from: currentaccount });
+        .send({ from: currentAccount });
       if (receipt) {
         loadBlockchainData();
       }
@@ -150,7 +150,7 @@ function AssignRoles() {
     try {
       var receipt = await SupplyChain.methods
         .addManufacturer(MANaddress, MANname, MANplace)
-        .send({ from: currentaccount });
+        .send({ from: currentAccount });
       if (receipt) {
         loadBlockchainData();
       }
@@ -163,7 +163,7 @@ function AssignRoles() {
     try {
       var receipt = await SupplyChain.methods
         .addDistributor(DISaddress, DISname, DISplace)
-        .send({ from: currentaccount });
+        .send({ from: currentAccount });
       if (receipt) {
         loadBlockchainData();
       }
@@ -176,7 +176,7 @@ function AssignRoles() {
     try {
       var receipt = await SupplyChain.methods
         .addRetailer(RETaddress, RETname, RETplace)
-        .send({ from: currentaccount });
+        .send({ from: currentAccount });
       if (receipt) {
         loadBlockchainData();
       }
@@ -189,7 +189,7 @@ function AssignRoles() {
     <div className="container mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <span>
-          <b>Current Account Address:</b> {currentaccount}
+          <b>Current Account Address:</b> {currentAccount}
         </span>
         <button
           onClick={redirect_to_home}
