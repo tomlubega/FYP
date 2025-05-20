@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 function Home() {
   const history = useHistory();
-  
+
   const redirect_to_roles = () => {
     history.push("/roles");
   };
@@ -16,33 +16,57 @@ function Home() {
   const redirect_to_track = () => {
     history.push("/track");
   };
-  
+
   return (
-    <div className="container">
-      <h2 className="text-tomato-red text-bold">Tomatoes Supply Chain Flow</h2>
-      <div className="note-section">
-        <p>(Note: Here <u>Owner</u> is the person who deployed the smart contract on the blockchain)</p>
+    <div className="container mt-5">
+      <div className="text-center">
+        <h2 className="fw-bold text-primary mb-4">
+          TomaDigital Supply Chain Flow
+        </h2>
+        <p className="text-muted fst-italic">
+          (Note: Here <span className="fw-bold text-dark">Owner</span> is the
+          person who deployed the smart contract on the blockchain)
+        </p>
       </div>
-      <div className="step-section">
-        <h5>Step 1: Owner Should Register farmers, Suppliers, Distributors, and Retailers</h5>
-        <p>(Note: This is a one-time step. Skip to step 2 if already done)</p>
-        <button onClick={redirect_to_roles} className="btn btn-primary">Register</button>
+
+      <div className="card shadow-sm p-4 mb-4">
+        <h5 className="fw-bold text-secondary mb-2">Step 1:</h5>
+        <p>
+          Owner should register farmers, suppliers, distributors, and retailers
+        </p>
+        <p className="text-muted">
+          (Note: This is a one-time step. Skip to step 2 if already done)
+        </p>
+        <button onClick={redirect_to_roles} className="btn btn-primary w-100">
+          Register
+        </button>
       </div>
-      <div className="step-section">
-        <h5>Step 2: Owner should order tomatoes</h5>
-        <button onClick={redirect_to_addmed} className="btn btn-primary">Order Tomatoes</button>
+
+      <div className="card shadow-sm p-4 mb-4">
+        <h5 className="fw-bold text-secondary mb-2">Step 2:</h5>
+        <p>Owner should order tomatoes</p>
+        <button onClick={redirect_to_addmed} className="btn btn-success w-100">
+          Order Tomatoes
+        </button>
       </div>
-      <div className="step-section">
-        <h5>Step 3: Control Supply Chain</h5>
-        <button onClick={redirect_to_supply} className="btn btn-primary">Control Supply Chain</button>
+
+      <div className="card shadow-sm p-4 mb-4">
+        <h5 className="fw-bold text-secondary mb-2">Step 3:</h5>
+        <p>Control the supply chain</p>
+        <button onClick={redirect_to_supply} className="btn btn-warning w-100">
+          Control Supply Chain
+        </button>
       </div>
-      <hr className="custom-hr" />
-      <div className="track-section">
-        <h5><b>Track</b> the tomatoes:</h5>
-        <button onClick={redirect_to_track} className="btn btn-primary">Track Tomatoes</button>
+
+      <hr className="my-4" />
+
+      <div className="text-center">
+        <h5 className="fw-bold mb-3">Track the Tomatoes</h5>
+        <button onClick={redirect_to_track} className="btn btn-outline-dark">
+          Track Tomatoes
+        </button>
       </div>
     </div>
   );
 }
-
 export default Home;
